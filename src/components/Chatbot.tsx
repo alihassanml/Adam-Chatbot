@@ -73,7 +73,7 @@ const Chatbot = () => {
     setTypingMessage("Adam is typing...");
 
     try {
-      const res = await fetch("https://auto.robogrowthpartners.com/webhook/lead-qualification-agent", {
+      const res = await fetch("https://auto.robogrowthpartners.com/webhook/adam-chatbot", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ user_id: userId, message: userMessage })
@@ -136,17 +136,26 @@ const Chatbot = () => {
   };
 
   // Function to handle direct messaging without form
-  const handleDirectMessage = () => {
-    setScreen("chat");
-    // If no user info stored, send anonymous message
-    const storedName = sessionStorage.getItem("chat_name");
-    const storedEmail = sessionStorage.getItem("chat_email");
+  const [firstMessageSent, setFirstMessageSent] = useState(() => {
+  return sessionStorage.getItem("first_message_sent") === "true";
+});
 
-    if (!storedName || !storedEmail) {
-      // Start chat as anonymous user
-      handleBotResponse("Hello, I'd like to start a conversation.");
-    }
-  };
+const handleDirectMessage = () => {
+  setScreen("chat");
+
+  if (firstMessageSent) return; // prevent re-sending
+
+  const storedName = sessionStorage.getItem("chat_name");
+  const storedEmail = sessionStorage.getItem("chat_email");
+
+  if (!storedName || !storedEmail) {
+    handleBotResponse("Hello, I'd like to start a conversation.");
+  }
+
+  setFirstMessageSent(true);
+  sessionStorage.setItem("first_message_sent", "true");
+};
+
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
