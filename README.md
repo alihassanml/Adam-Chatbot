@@ -1,4 +1,4 @@
-# Robo Growth Partners Chatbot
+# Adam Chatbot
 
 <!-- ![Chatbot Banner](./image.png) -->
 
@@ -38,8 +38,8 @@ Follow these steps to run the chatbot locally:
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/alihassanml/RoboGrowth-Chatbot.git
-cd RoboGrowth-Chatbot
+git clone https://github.com/alihassanml/Adam-Chatbot.git
+cd Adam-Chatbot
 ```
 
 ### 2. Install Dependencies
