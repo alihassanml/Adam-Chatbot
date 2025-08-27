@@ -4,7 +4,7 @@ import { FiMessageCircle } from 'react-icons/fi';
 import { Button, Form, Card } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ReactMarkdown from 'react-markdown';
-import { motion } from "framer-motion";
+import { motion, scale } from "framer-motion";
 import { FaChevronRight } from 'react-icons/fa';
 
 type Message = {
@@ -15,7 +15,7 @@ type Message = {
 
 const Chatbot = () => {
   const [isOpen, setIsOpen] = useState(true);
-  const [screen, setScreen] = useState<'intro'  | 'chat'>('intro');
+  const [screen, setScreen] = useState<'intro' | 'chat'>('intro');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [input, setInput] = useState('');
@@ -49,11 +49,11 @@ const Chatbot = () => {
   const userName = (sessionStorage.getItem("chat_name") || "Guest").charAt(0).toUpperCase() + (sessionStorage.getItem("chat_name") || "Guest").slice(1);
 
   const helpOptions = [
-    "How can RGP help my local business get more customers?",
-    "What's the biggest difference between RGP's AI tools and regular marketing",
-    "Can you check if my business is showing up on Google searches?",
-    "What happens if I miss calls or messages from new leads?",
-    "How do I book a quick call with your team to see if this works for me?"
+    "What services does Adams Heating & Cooling provide?",
+    "Do you offer emergency repair services?",
+    "How do I know if my AC or heating system needs repair?",
+    "How can I schedule a service?",
+    "Do you install energy-efficient HVAC systems?"
   ];
 
   useEffect(() => {
@@ -126,12 +126,12 @@ const Chatbot = () => {
   };
 
   const handleFormSubmit = () => {
-      setScreen("chat");
-      const pendingPrompt = sessionStorage.getItem("pending_prompt");
-      const firstMessage = `User info: Name = ${name}, Email = ${email}${pendingPrompt ? `\n\n${pendingPrompt}` : ""}`;
-      handleBotResponse(firstMessage);
+    setScreen("chat");
+    const pendingPrompt = sessionStorage.getItem("pending_prompt");
+    const firstMessage = `User info: Name = ${name}, Email = ${email}${pendingPrompt ? `\n\n${pendingPrompt}` : ""}`;
+    handleBotResponse(firstMessage);
 
-      sessionStorage.removeItem("pending_prompt");
+    sessionStorage.removeItem("pending_prompt");
 
   };
 
@@ -141,7 +141,7 @@ const Chatbot = () => {
     // If no user info stored, send anonymous message
     const storedName = sessionStorage.getItem("chat_name");
     const storedEmail = sessionStorage.getItem("chat_email");
-    
+
     if (!storedName || !storedEmail) {
       // Start chat as anonymous user
       handleBotResponse("Hello, I'd like to start a conversation.");
@@ -190,7 +190,7 @@ const Chatbot = () => {
             zIndex: 10000,
           }}
         >
-          <Card style={{ width: '400px', height: '630px', display: 'flex', flexDirection: 'column', borderRadius: "30px", overflow: "hidden" }}>
+          <Card style={{ width: '400px', height: '640px', display: 'flex', flexDirection: 'column', borderRadius: "30px", overflow: "hidden" }}>
 
             {/* Modern Header */}
             <div className={screen === 'intro' || screen === 'form' ? 'curved-rectangle' : ''} style={{
@@ -198,30 +198,49 @@ const Chatbot = () => {
               padding: '20px',
               paddingTop: "20px",
               color: 'white',
-              minHeight: "150px"
+              minHeight: "100px"
             }}>
-                              <div style={{ display: 'flex', alignItems: 'center' }}>
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                {screen === 'intro' && (
                   <img
-                    src="./logo.png"
+                    src="./chatbot.gif"
+                    alt="Chatbot Logo"
                     style={{
-                      width: "45px",
-                      height: "45px",
-                      borderRadius: '50%',
-                      objectFit: 'cover',
-                      marginRight: '10px'
+                      width: "60px",
+                      height: "60px",
+                      borderRadius: "50%",
+                      paddingTop: "10px",
+                      objectFit: "cover",
+                      marginRight: "10px"
                     }}
                   />
-                  {screen === 'chat' && (
-                    <h4 style={{
-                      fontSize: "16px",
-                      fontWeight: "bold"
-                    }}>{userName}</h4>
-                  )}
-                </div>
+                )}
+
+
+                {screen === 'chat' && (
+                  <h4 style={{
+                    fontSize: "20px",
+                    fontWeight: "bold",
+                    paddingTop: "15px"
+                  }}> Adams <br /> Heating & Colling </h4>
+                )}
+              </div>
               <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
               </div>
-              <b><h3 style={{ margin: 0, textDecoration: "bold", fontFamily: "", fontSize:"25px",fontWeight:"bold" }}>Hi {userName} 👋</h3></b>
-              <p style={{ margin: 0, fontSize: 15, paddingTop: '10px' }}>I am <b>Adam</b>. How can we help ?</p>
+              {screen === 'intro' && (
+                <>
+                  <h3 style={{ margin: 0, fontSize: "25px", fontWeight: "bold" }}>
+                    Adams Chat Assistant
+                  </h3>
+                  <p style={{ margin: 0, fontSize: 15, paddingTop: '10px', paddingRight: '50px' }}>
+                    👋 Hi, I’m the chatbot from <b>Adam</b>. How can I help you today?
+                  </p>
+                </>
+              )}
+
+
+
+
             </div>
 
             {/* Main Body */}
@@ -287,7 +306,7 @@ const Chatbot = () => {
                 </motion.div>
               )}
 
-            
+
 
               {screen === 'chat' && (
                 <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
@@ -295,7 +314,7 @@ const Chatbot = () => {
                     {messages.map((msg, idx) => (
                       <div key={idx} style={{ display: 'flex', justifyContent: msg.type === 'user' ? 'flex-end' : 'flex-start', marginBottom: '8px' }}>
                         {msg.type === 'bot' && (
-                          <img src="./logo.png" alt="Bot" style={{ width: '28px', height: '28px', marginRight: '8px', borderRadius: '50%', backgroundColor: 'black' }} />
+                          <img src="././chatbot.gif" alt="Bot" style={{ width: '28px', height: '28px', marginRight: '8px', borderRadius: '50%', backgroundColor: 'black' }} />
                         )}
                         <div style={{
                           maxWidth: '75%',
@@ -313,7 +332,7 @@ const Chatbot = () => {
                     ))}
                     {typingMessage && (
                       <div style={{ display: 'flex', alignItems: 'flex-start', marginBottom: '8px' }}>
-                        <img src="./logo.png" alt="Bot" style={{ width: '28px', height: '28px', marginRight: '8px', borderRadius: '50%', backgroundColor: 'black' }} />
+                        <img src="././chatbot.gif" alt="Bot" style={{ width: '28px', height: '28px', marginRight: '8px', borderRadius: '50%', backgroundColor: 'black' }} />
                         <div className="typing-indicator">
                           <div className="typing-dot"></div>
                           <div className="typing-dot"></div>
@@ -377,7 +396,7 @@ const Chatbot = () => {
                 background: '#f8f9fa',
                 fontFamily: "'Segoe UI', sans-serif",
                 fontWeight: 500,
-                boxShadow: (screen === 'intro' ) ? "0 5px 10px #b3b3b3ff" : "none"
+                boxShadow: (screen === 'intro') ? "0 5px 10px #b3b3b3ff" : "none"
               }}
             >
               {[
