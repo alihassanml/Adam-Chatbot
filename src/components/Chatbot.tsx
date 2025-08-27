@@ -203,14 +203,14 @@ const handleDirectMessage = () => {
 
             {/* Modern Header */}
             <div className={screen === 'intro' || screen === 'form' ? 'curved-rectangle' : ''} style={{
-              background: "linear-gradient(135deg, #0c2249, #2c5383)",
+              background: "linear-gradient(135deg, #000000ff, #7a7a7aff)",
               padding: '20px',
               paddingTop: "20px",
               color: 'white',
               minHeight: "100px"
             }}>
               <div style={{ display: 'flex', alignItems: 'center' }}>
-                {screen === 'intro' && (
+               
                   <img
                     src="./chatbot.gif"
                     alt="Chatbot Logo"
@@ -223,15 +223,10 @@ const handleDirectMessage = () => {
                       marginRight: "10px"
                     }}
                   />
-                )}
 
 
                 {screen === 'chat' && (
-                  <h4 style={{
-                    fontSize: "20px",
-                    fontWeight: "bold",
-                    paddingTop: "15px"
-                  }}> Adams <br /> Heating & Colling </h4>
+                   <p style={{fontSize:"15px",fontWeight:"lighter", paddingTop:"25px"}}>AI Assistant</p> 
                 )}
               </div>
               <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
@@ -281,7 +276,7 @@ const handleDirectMessage = () => {
                       <strong style={{ fontSize: '15px', color: '#000' }}>Send us a message</strong>
                       <p style={{ margin: 0, fontSize: '13px', color: '#666' }}>We typically reply within an hour</p>
                     </div>
-                    <FaChevronRight color="#3484daff" size={16} />
+                    <FaChevronRight color="#000000ff" size={16} />
                   </div>
 
                   {/* Search for help card */}
@@ -332,7 +327,7 @@ const handleDirectMessage = () => {
                           paddingRight: '13px',
                           borderRadius: '30px',
                           color: msg.type === 'user' ? 'white' : 'black',
-                          background: msg.type === 'user' ? 'linear-gradient(135deg, #0c2249, #2c5383)' : '#f1f1f1',
+                          background: msg.type === 'user' ? 'linear-gradient(135deg, #000000ff, #7a7a7aff)' : '#f1f1f1',
                           fontSize: "14px"
                         }}>
                           <ReactMarkdown>{msg.text}</ReactMarkdown>
@@ -379,7 +374,7 @@ const handleDirectMessage = () => {
                       style={{
                         marginLeft: '8px',
                         borderRadius: '50%',
-                        background: "linear-gradient(135deg, #0c2249, #2c5383)",
+                        background: "linear-gradient(135deg, #000000ff, #7a7a7aff)",
                         width: '40px',
                         border: "none",
                         height: '40px',
@@ -424,7 +419,7 @@ const handleDirectMessage = () => {
                     style={{
                       textAlign: 'center',
                       cursor: 'pointer',
-                      color: isActive ? '#2c5383' : '#555',
+                      color: isActive ? '#000000ff' : '#555',
                       padding: '5px 10px',
                       borderRadius: '8px'
                     }}
