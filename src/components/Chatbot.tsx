@@ -6,6 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import ReactMarkdown from 'react-markdown';
 import { motion, scale } from "framer-motion";
 import { FaChevronRight } from 'react-icons/fa';
+import { FaBookmark } from "react-icons/fa";
 
 type Message = {
   type: 'bot' | 'user';
@@ -137,24 +138,24 @@ const Chatbot = () => {
 
   // Function to handle direct messaging without form
   const [firstMessageSent, setFirstMessageSent] = useState(() => {
-  return sessionStorage.getItem("first_message_sent") === "true";
-});
+    return sessionStorage.getItem("first_message_sent") === "true";
+  });
 
-const handleDirectMessage = () => {
-  setScreen("chat");
+  const handleDirectMessage = () => {
+    setScreen("chat");
 
-  if (firstMessageSent) return; // prevent re-sending
+    if (firstMessageSent) return; // prevent re-sending
 
-  const storedName = sessionStorage.getItem("chat_name");
-  const storedEmail = sessionStorage.getItem("chat_email");
+    const storedName = sessionStorage.getItem("chat_name");
+    const storedEmail = sessionStorage.getItem("chat_email");
 
-  if (!storedName || !storedEmail) {
-    handleBotResponse("Hello, I'd like to start a conversation.");
-  }
+    if (!storedName || !storedEmail) {
+      handleBotResponse("Hello, I'd like to start a conversation.");
+    }
 
-  setFirstMessageSent(true);
-  sessionStorage.setItem("first_message_sent", "true");
-};
+    setFirstMessageSent(true);
+    sessionStorage.setItem("first_message_sent", "true");
+  };
 
 
   useEffect(() => {
@@ -202,6 +203,7 @@ const handleDirectMessage = () => {
           <Card style={{ width: '400px', height: '640px', display: 'flex', flexDirection: 'column', borderRadius: "30px", overflow: "hidden" }}>
 
             {/* Modern Header */}
+
             <div className={screen === 'intro' || screen === 'form' ? 'curved-rectangle' : ''} style={{
               background: "linear-gradient(135deg, #000000ff, #7a7a7aff)",
               padding: '20px',
@@ -210,24 +212,27 @@ const handleDirectMessage = () => {
               minHeight: "100px"
             }}>
               <div style={{ display: 'flex', alignItems: 'center' }}>
-               
-                  <img
-                    src="./chatbot.gif"
-                    alt="Chatbot Logo"
-                    style={{
-                      width: "60px",
-                      height: "60px",
-                      borderRadius: "50%",
-                      paddingTop: "10px",
-                      objectFit: "cover",
-                      marginRight: "10px"
-                    }}
-                  />
+
+                <img
+                  src="./chatbot.gif"
+                  alt="Chatbot Logo"
+                  style={{
+                    width: "60px",
+                    height: "60px",
+                    borderRadius: "50%",
+                    paddingTop: "10px",
+                    objectFit: "cover",
+                    marginRight: "10px"
+                  }}
+                />
 
 
-                {screen === 'chat' && (
-                   <p style={{fontSize:"19px",fontWeight:"bold", paddingTop:"25px"}}>Adam Services</p> 
+                {(screen === 'chat' || screen === 'appointment') && (
+                  <p style={{ fontSize: "19px", fontWeight: "bold", paddingTop: "25px" }}>
+                    Adam Services
+                  </p>
                 )}
+
               </div>
               <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
               </div>
@@ -317,7 +322,7 @@ const handleDirectMessage = () => {
                   <div style={{ flex: 1, overflowY: 'auto', paddingBottom: '10px' }}>
                     {messages.map((msg, idx) => (
                       <div key={idx} style={{ display: 'flex', justifyContent: msg.type === 'user' ? 'flex-end' : 'flex-start', marginBottom: '8px' }}>
-                      
+
                         <div style={{
                           maxWidth: '75%',
                           paddingLeft: '13px',
@@ -387,6 +392,32 @@ const handleDirectMessage = () => {
                 </div>
               )}
 
+
+              {screen === 'appointment' && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.3 }}
+                  style={{ textAlign: 'left', padding: '15px' }}
+                >
+                  <div style={{
+                    textAlign: 'center', marginBottom: '20px', scrollbarWidth: 'none',       // Firefox
+                    msOverflowStyle: 'none',
+                  }} className="hide-scrollbar">
+                    <iframe
+                      src="https://api.leadconnectorhq.com/widget/booking/HiYopj7kQx8hI3Om9rbq"
+                      frameBorder="0"
+                      width="100%"
+                      height="400px"
+                      style={{ border: 'none', borderRadius: '10px', margin: "0", padding: "0" }}
+                    ></iframe>
+
+                  </div>
+
+
+                </motion.div>
+              )}
+
             </Card.Body>
 
             <Card.Footer
@@ -404,6 +435,7 @@ const handleDirectMessage = () => {
               {[
                 { icon: FaHome, label: 'Home', screenName: 'intro' },
                 { icon: FaEnvelope, label: 'Messages', screenName: 'chat' },
+                { icon: FaBookmark, label: 'Book Meeting', screenName: 'appointment' },
               ].map((item, idx) => {
                 const Icon = item.icon;
                 const isActive = screen === item.screenName;
