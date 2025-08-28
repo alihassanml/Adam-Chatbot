@@ -49,11 +49,11 @@ const Chatbot = () => {
   const userName = (sessionStorage.getItem("chat_name") || "Guest").charAt(0).toUpperCase() + (sessionStorage.getItem("chat_name") || "Guest").slice(1);
 
   const helpOptions = [
-    "What services does Adams Heating & Cooling provide?",
-    "Do you offer emergency repair services?",
-    "How do I know if my AC or heating system needs repair?",
-    "How can I schedule a service?",
-    "Do you install energy-efficient HVAC systems?"
+    "What services does Adams provide ?",
+    "Do you offer emergency repair services ?",
+    "How do I know if my AC or heating system needs repair ?",
+    "How can I schedule a service ?",
+    "Do you install energy-efficient HVAC systems ?"
   ];
 
   useEffect(() => {
@@ -226,7 +226,7 @@ const handleDirectMessage = () => {
 
 
                 {screen === 'chat' && (
-                   <p style={{fontSize:"15px",fontWeight:"lighter", paddingTop:"25px"}}>AI Assistant</p> 
+                   <p style={{fontSize:"19px",fontWeight:"bold", paddingTop:"25px"}}>Adam Services</p> 
                 )}
               </div>
               <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
@@ -234,10 +234,10 @@ const handleDirectMessage = () => {
               {screen === 'intro' && (
                 <>
                   <h3 style={{ margin: 0, fontSize: "25px", fontWeight: "bold" }}>
-                    Adams Chat Assistant
+                    Adams Services
                   </h3>
                   <p style={{ margin: 0, fontSize: 15, paddingTop: '10px', paddingRight: '50px' }}>
-                    👋 Hi, I’m the chatbot from <b>Adam</b>. How can I help you today?
+                    👋 Hi, I’m the chatbot from <b>Adam Services</b>. How can I help you today?
                   </p>
                 </>
               )}
@@ -317,15 +317,13 @@ const handleDirectMessage = () => {
                   <div style={{ flex: 1, overflowY: 'auto', paddingBottom: '10px' }}>
                     {messages.map((msg, idx) => (
                       <div key={idx} style={{ display: 'flex', justifyContent: msg.type === 'user' ? 'flex-end' : 'flex-start', marginBottom: '8px' }}>
-                        {msg.type === 'bot' && (
-                          <img src="././chatbot.gif" alt="Bot" style={{ width: '28px', height: '28px', marginRight: '8px', borderRadius: '50%', backgroundColor: 'black' }} />
-                        )}
+                      
                         <div style={{
                           maxWidth: '75%',
                           paddingLeft: '13px',
                           paddingTop: '14px',
                           paddingRight: '13px',
-                          borderRadius: '30px',
+                          borderRadius: '20px',
                           color: msg.type === 'user' ? 'white' : 'black',
                           background: msg.type === 'user' ? 'linear-gradient(135deg, #000000ff, #7a7a7aff)' : '#f1f1f1',
                           fontSize: "14px"
