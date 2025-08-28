@@ -229,7 +229,7 @@ const Chatbot = () => {
 
                 {(screen === 'chat' || screen === 'appointment') && (
                   <p style={{ fontSize: "19px", fontWeight: "bold", paddingTop: "25px" }}>
-                    Adam Services
+                    Adams Services
                   </p>
                 )}
 
@@ -242,7 +242,7 @@ const Chatbot = () => {
                     Adams Services
                   </h3>
                   <p style={{ margin: 0, fontSize: 15, paddingTop: '10px', paddingRight: '50px' }}>
-                    👋 Hi, I’m the chatbot from <b>Adam Services</b>. How can I help you today?
+                    👋 Hi, I’m the chatbot from <b>Adams</b>. How can I help you today?
                   </p>
                 </>
               )}
