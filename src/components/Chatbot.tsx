@@ -24,6 +24,8 @@ const Chatbot = () => {
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
   const [messageQueue, setMessageQueue] = useState<string[]>([]);
   const [botBusy, setBotBusy] = useState(false);
+  const [appointmentLoading, setAppointmentLoading] = useState(true);
+
 
   const [userId] = useState(() => {
     const existing = sessionStorage.getItem("user_id");
@@ -193,8 +195,8 @@ const Chatbot = () => {
                   src="logo.png"
                   alt="Chatbot Logo"
                   style={{
-                    marginTop:"20px",
-                    marginLeft:"10px",
+                    marginTop: "20px",
+                    marginLeft: "10px",
                     width: "130px",
                     height: "60px",
                     paddingTop: "10px",
@@ -203,23 +205,17 @@ const Chatbot = () => {
                   }}
                 />
 
-
-               
-
               </div>
               <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
               </div>
               {screen === 'intro' && (
                 <>
-                
-                  <p style={{ margin: 0, fontSize: 15, paddingTop: '10px', paddingRight: '50px',marginLeft:"10px", }}>
+
+                  <p style={{ margin: 0, fontSize: 15, paddingTop: '10px', paddingRight: '50px', marginLeft: "10px", }}>
                     👋 Hi, I’m the chatbot from <b>Adams</b>. How can I help you today?
                   </p>
                 </>
               )}
-
-
-
 
             </div>
 
@@ -371,23 +367,44 @@ const Chatbot = () => {
                   transition={{ duration: 0.3 }}
                   style={{ textAlign: 'left', padding: '15px' }}
                 >
-                  <div style={{
-                    textAlign: 'center', marginBottom: '20px', scrollbarWidth: 'none',       // Firefox
-                    msOverflowStyle: 'none',
-                  }} className="hide-scrollbar">
+                  <div style={{ textAlign: 'center', marginBottom: '20px', position: 'relative' }}>
+
+                    {/* Loader */}
+                    {appointmentLoading && (
+                      <div
+                        style={{
+                          position: "absolute",
+                          top: 0,
+                          left: 0,
+                          right: 0,
+                          bottom: 0,
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          background: "rgba(255,255,255,0.8)",
+                          borderRadius: "10px",
+                          zIndex: 10
+                        }}
+                      >
+                        <div className="spinner-border text-dark" role="status">
+                          <span className="visually-hidden">Loading...</span>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Appointment Iframe */}
                     <iframe
                       src="https://api.leadconnectorhq.com/widget/booking/HiYopj7kQx8hI3Om9rbq"
                       frameBorder="0"
                       width="100%"
                       height="400px"
+                      onLoad={() => setAppointmentLoading(false)}
                       style={{ border: 'none', borderRadius: '10px', margin: "0", padding: "0" }}
                     ></iframe>
-
                   </div>
-
-
                 </motion.div>
               )}
+
 
             </Card.Body>
 
