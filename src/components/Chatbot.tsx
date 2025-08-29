@@ -1,10 +1,9 @@
 import { useState, useRef, useEffect } from 'react';
-import { FaArrowAltCircleUp, FaChevronDown, FaHome, FaEnvelope } from "react-icons/fa";
-import { FiMessageCircle } from 'react-icons/fi';
-import { Button, Form, Card } from 'react-bootstrap';
+import { FaArrowAltCircleUp, FaHome, FaEnvelope } from "react-icons/fa";
+import { Button, Card } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ReactMarkdown from 'react-markdown';
-import { motion, scale } from "framer-motion";
+import { motion } from "framer-motion";
 import { FaChevronRight } from 'react-icons/fa';
 import { FaBookmark } from "react-icons/fa";
 
@@ -16,7 +15,7 @@ type Message = {
 
 const Chatbot = () => {
   const [isOpen, setIsOpen] = useState(true);
-  const [screen, setScreen] = useState<'intro' | 'chat' | 'appointment'>('intro');
+  const [screen, setScreen] = useState<'intro' | 'chat'>('intro');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [input, setInput] = useState('');
@@ -25,10 +24,6 @@ const Chatbot = () => {
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
   const [messageQueue, setMessageQueue] = useState<string[]>([]);
   const [botBusy, setBotBusy] = useState(false);
-  
-  // New state for booking iframe loading
-  const [isBookingLoading, setIsBookingLoading] = useState(true);
-  const [bookingError, setBookingError] = useState(false);
 
   const [userId] = useState(() => {
     const existing = sessionStorage.getItem("user_id");
@@ -72,24 +67,6 @@ const Chatbot = () => {
       }
     }
   }, [isOpen]);
-
-  // Reset booking loading state when switching to appointment screen
-  useEffect(() => {
-    if (screen === 'appointment') {
-      setIsBookingLoading(true);
-      setBookingError(false);
-      
-      // Set a timeout to show error if iframe doesn't load within 10 seconds
-      const timeoutId = setTimeout(() => {
-        if (isBookingLoading) {
-          setIsBookingLoading(false);
-          setBookingError(true);
-        }
-      }, 10000);
-
-      return () => clearTimeout(timeoutId);
-    }
-  }, [screen]);
 
   const handleBotResponse = async (userMessage: string) => {
     setBotBusy(true);
@@ -155,6 +132,7 @@ const Chatbot = () => {
     handleBotResponse(firstMessage);
 
     sessionStorage.removeItem("pending_prompt");
+
   };
 
   // Function to handle direct messaging without form
@@ -178,94 +156,14 @@ const Chatbot = () => {
     sessionStorage.setItem("first_message_sent", "true");
   };
 
-  // Handle iframe load success
-  const handleIframeLoad = () => {
-    setIsBookingLoading(false);
-    setBookingError(false);
-  };
-
-  // Handle iframe load error
-  const handleIframeError = () => {
-    setIsBookingLoading(false);
-    setBookingError(true);
-  };
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, typingMessage]);
 
-  // Loader component
-  const BookingLoader = () => (
-    <div style={{
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-      height: '400px',
-      background: '#f8f9fa',
-      borderRadius: '10px'
-    }}>
-      <div style={{
-        width: '40px',
-        height: '40px',
-        border: '4px solid #e3e3e3',
-        borderTop: '4px solid #000000ff',
-        borderRadius: '50%',
-        animation: 'spin 1s linear infinite',
-        marginBottom: '20px'
-      }}></div>
-      <p style={{ color: '#666', fontSize: '14px', textAlign: 'center' }}>
-        Loading booking calendar...
-      </p>
-      <style>{`
-        @keyframes spin {
-          0% { transform: rotate(0deg); }
-          100% { transform: rotate(360deg); }
-        }
-      `}</style>
-    </div>
-  );
-
-  // Error component
-  const BookingError = () => (
-    <div style={{
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-      height: '400px',
-      background: '#f8f9fa',
-      borderRadius: '10px',
-      padding: '20px'
-    }}>
-      <div style={{
-        fontSize: '40px',
-        marginBottom: '15px'
-      }}>⚠️</div>
-      <h4 style={{ color: '#666', marginBottom: '10px' }}>Unable to load booking calendar</h4>
-      <p style={{ color: '#999', fontSize: '14px', textAlign: 'center', marginBottom: '20px' }}>
-        Please try refreshing the page or contact us directly.
-      </p>
-      <Button
-        onClick={() => {
-          setIsBookingLoading(true);
-          setBookingError(false);
-        }}
-        style={{
-          background: "linear-gradient(135deg, #000000ff, #7a7a7aff)",
-          border: "none",
-          borderRadius: "20px",
-          padding: "8px 20px",
-          fontSize: "14px"
-        }}
-      >
-        Try Again
-      </Button>
-    </div>
-  );
-
   return (
     <>
+
       {isOpen && (
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -281,6 +179,7 @@ const Chatbot = () => {
           <Card style={{ width: '400px', height: '640px', display: 'flex', flexDirection: 'column', borderRadius: "30px", overflow: "hidden" }}>
 
             {/* Modern Header */}
+
             <div className={screen === 'intro' || screen === 'form' ? 'curved-rectangle' : ''} style={{
               background: "linear-gradient(135deg, #000000ff, #7a7a7aff)",
               padding: '20px',
@@ -289,37 +188,39 @@ const Chatbot = () => {
               minHeight: "100px"
             }}>
               <div style={{ display: 'flex', alignItems: 'center' }}>
+
                 <img
-                  src="./chatbot.gif"
+                  src="logo.png"
                   alt="Chatbot Logo"
                   style={{
-                    width: "60px",
+                    marginTop:"20px",
+                    marginLeft:"10px",
+                    width: "130px",
                     height: "60px",
-                    borderRadius: "50%",
                     paddingTop: "10px",
                     objectFit: "cover",
                     marginRight: "10px"
                   }}
                 />
 
-                {(screen === 'chat' || screen === 'appointment') && (
-                  <p style={{ fontSize: "19px", fontWeight: "bold", paddingTop: "25px" }}>
-                    Adams Services
-                  </p>
-                )}
+
+               
+
               </div>
               <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
               </div>
               {screen === 'intro' && (
                 <>
-                  <h3 style={{ margin: 0, fontSize: "25px", fontWeight: "bold" }}>
-                    Adams Services
-                  </h3>
-                  <p style={{ margin: 0, fontSize: 15, paddingTop: '10px', paddingRight: '50px' }}>
-                    👋 Hi, I'm the chatbot from <b>Adams</b>. How can I help you today?
+                
+                  <p style={{ margin: 0, fontSize: 15, paddingTop: '10px', paddingRight: '50px',marginLeft:"10px", }}>
+                    👋 Hi, I’m the chatbot from <b>Adams</b>. How can I help you today?
                   </p>
                 </>
               )}
+
+
+
+
             </div>
 
             {/* Main Body */}
@@ -385,11 +286,14 @@ const Chatbot = () => {
                 </motion.div>
               )}
 
+
+
               {screen === 'chat' && (
                 <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
                   <div style={{ flex: 1, overflowY: 'auto', paddingBottom: '10px' }}>
                     {messages.map((msg, idx) => (
                       <div key={idx} style={{ display: 'flex', justifyContent: msg.type === 'user' ? 'flex-end' : 'flex-start', marginBottom: '8px' }}>
+
                         <div style={{
                           maxWidth: '75%',
                           paddingLeft: '13px',
@@ -459,6 +363,7 @@ const Chatbot = () => {
                 </div>
               )}
 
+
               {screen === 'appointment' && (
                 <motion.div
                   initial={{ opacity: 0 }}
@@ -467,36 +372,20 @@ const Chatbot = () => {
                   style={{ textAlign: 'left', padding: '15px' }}
                 >
                   <div style={{
-                    textAlign: 'center',
-                    marginBottom: '20px',
-                    scrollbarWidth: 'none',
+                    textAlign: 'center', marginBottom: '20px', scrollbarWidth: 'none',       // Firefox
                     msOverflowStyle: 'none',
-                    position: 'relative'
                   }} className="hide-scrollbar">
-                    
-                    {/* Show loader while loading */}
-                    {isBookingLoading && <BookingLoader />}
-                    
-                    {/* Show error if failed to load */}
-                    {bookingError && <BookingError />}
-                    
-                    {/* Show iframe when loaded successfully */}
                     <iframe
                       src="https://api.leadconnectorhq.com/widget/booking/HiYopj7kQx8hI3Om9rbq"
                       frameBorder="0"
                       width="100%"
                       height="400px"
-                      style={{
-                        border: 'none',
-                        borderRadius: '10px',
-                        margin: "0",
-                        padding: "0",
-                        display: (isBookingLoading || bookingError) ? 'none' : 'block'
-                      }}
-                      onLoad={handleIframeLoad}
-                      onError={handleIframeError}
-                    />
+                      style={{ border: 'none', borderRadius: '10px', margin: "0", padding: "0" }}
+                    ></iframe>
+
                   </div>
+
+
                 </motion.div>
               )}
 
@@ -540,7 +429,7 @@ const Chatbot = () => {
                         // Go directly to chat without requiring form
                         handleDirectMessage();
                       } else if (item.screenName) {
-                        setScreen(item.screenName as any);
+                        setScreen(item.screenName);
                       }
                     }}
                   >
