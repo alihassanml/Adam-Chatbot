@@ -121,7 +121,7 @@ const AdamsChatbot = () => {
       title: "Book Appointment",
       subtitle: "Schedule your service",
       action: () => setScreen('appointment'),
-      gradient: "from-orange-600 to-red-600"
+      gradient: "from-orange-600 to-orange-400"
     },
     {
       icon: MessageCircle,
@@ -316,7 +316,7 @@ const AdamsChatbot = () => {
 
               <div className="text-xs sm:text-sm opacity-90 text-gray-200">
                 {screen === 'home' && "👋 Expert Heating & Cooling Services in Alabama"}
-                {screen === 'chat' && "💬 We typically respond within seconds"}
+                {screen === 'chat' && "We typically respond within seconds"}
                 {screen === 'faq' && "❓ Quick answers to common questions"}
                 {screen === 'appointment' && "📅 Schedule your service appointment"}
               </div>
