@@ -121,7 +121,7 @@ const AdamsChatbot = () => {
       title: "Book Appointment",
       subtitle: "Schedule your service",
       action: () => setScreen('appointment'),
-      gradient: "from-orange-600 to-orange-400"
+      gradient: "from-orange-600 to-red-600"
     },
     {
       icon: MessageCircle,
@@ -316,14 +316,14 @@ const AdamsChatbot = () => {
 
               <div className="text-xs sm:text-sm opacity-90 text-gray-200">
                 {screen === 'home' && "👋 Expert Heating & Cooling Services in Alabama"}
-                {screen === 'chat' && "We typically respond within seconds"}
+                {screen === 'chat' && "💬 We typically respond within seconds"}
                 {screen === 'faq' && "❓ Quick answers to common questions"}
                 {screen === 'appointment' && "📅 Schedule your service appointment"}
               </div>
 
               {screen === 'home' && (
                 <div className="mt-2 sm:mt-3">
-                  <p className="text-xs sm:text-sm opacity-80 leading-relaxed text-gray-200">
+                  <p className="text-sm sm:text-base opacity-80 leading-relaxed text-gray-200">
                     Over 35 years of experience • Licensed & Insured
                   </p>
                 </div>
@@ -351,10 +351,10 @@ const AdamsChatbot = () => {
               <div className="h-full overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent">
                 <div className="p-4 sm:p-5 space-y-3 sm:space-y-4">
                   <div className="text-center mb-3 sm:mb-4">
-                    <h4 className="text-xl sm:text-2xl font-bold text-slate-800 mb-2">
+                    <h4 className="text-2xl sm:text-3xl font-bold text-slate-800 mb-2">
                       How Can We Help?
                     </h4>
-                    <p className="text-gray-600 text-xs sm:text-sm">Professional HVAC services at your fingertips</p>
+                    <p className="text-gray-600 text-sm sm:text-base">Professional HVAC services at your fingertips</p>
                   </div>
 
                   <div className="space-y-2 sm:space-y-3">
@@ -372,8 +372,8 @@ const AdamsChatbot = () => {
                                 <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                               </div>
                               <div>
-                                <h5 className="font-bold text-slate-800 text-sm sm:text-base">{action.title}</h5>
-                                <p className="text-xs sm:text-sm text-gray-600 mt-0.5">{action.subtitle}</p>
+                                <h5 className="font-bold text-slate-800 text-base sm:text-lg">{action.title}</h5>
+                                <p className="text-sm sm:text-base text-gray-600 mt-0.5">{action.subtitle}</p>
                               </div>
                             </div>
                             <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400 group-hover:text-gray-700 transition-all duration-300 group-hover:translate-x-1" />
@@ -387,8 +387,8 @@ const AdamsChatbot = () => {
                     <div className="flex items-start space-x-2 sm:space-x-3">
                       <Wrench className="w-5 h-5 text-slate-700 mt-0.5 flex-shrink-0" />
                       <div>
-                        <h5 className="font-bold text-slate-800 text-xs sm:text-sm mb-1">24/7 Emergency Service Available</h5>
-                        <p className="text-xs text-gray-700 leading-relaxed">
+                        <h5 className="font-bold text-slate-800 text-sm sm:text-base mb-1">24/7 Emergency Service Available</h5>
+                        <p className="text-sm text-gray-700 leading-relaxed">
                           HVAC emergencies? We're here to help anytime. Call us immediately at (205) 462-8303
                         </p>
                       </div>
@@ -421,12 +421,12 @@ const AdamsChatbot = () => {
                               : 'bg-white text-slate-800 rounded-bl-sm border border-gray-200'
                           }`}>
                             <div 
-                              className="text-xs sm:text-sm leading-relaxed"
+                              className="text-sm sm:text-base leading-relaxed"
                               dangerouslySetInnerHTML={{ __html: parseMarkdown(msg.text) }}
                             />
                           </div>
                         </div>
-                        <p className={`text-xs text-gray-500 mt-1 px-8 sm:px-10 ${msg.type === 'user' ? 'text-right' : 'text-left'}`}>
+                        <p className={`text-xs sm:text-sm text-gray-500 mt-1 px-8 sm:px-10 ${msg.type === 'user' ? 'text-right' : 'text-left'}`}>
                           {formatTime(msg.timestamp)}
                         </p>
                       </div>
@@ -461,7 +461,7 @@ const AdamsChatbot = () => {
                       onChange={(e) => setInput(e.target.value)}
                       onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
                       placeholder="Type your message..."
-                      className="flex-1 px-3 sm:px-4 py-2.5 sm:py-3.5 border-2 border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent bg-gray-50 shadow-sm text-xs sm:text-sm"
+                      className="flex-1 px-3 sm:px-4 py-2.5 sm:py-3.5 border-2 border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent bg-gray-50 shadow-sm text-sm sm:text-base"
                     />
                     <button
                       onClick={sendMessage}
@@ -482,16 +482,16 @@ const AdamsChatbot = () => {
                   {faqData.map((faq, index) => (
                     <details key={index} className="group">
                       <summary className="flex items-center justify-between p-3 sm:p-4 bg-white hover:bg-gray-50 rounded-xl cursor-pointer transition-all duration-300 shadow-sm hover:shadow-md border border-gray-200 hover:border-gray-400">
-                        <h5 className="font-semibold text-slate-800 text-xs sm:text-sm pr-3 sm:pr-4">{faq.question}</h5>
-                        <ChevronRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-500 group-open:rotate-90 transition-transform duration-300 flex-shrink-0" />
+                        <h5 className="font-semibold text-slate-800 text-sm sm:text-base pr-3 sm:pr-4">{faq.question}</h5>
+                        <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 text-gray-500 group-open:rotate-90 transition-transform duration-300 flex-shrink-0" />
                       </summary>
                       <div className="p-3 sm:p-4 pt-2 sm:pt-3 bg-white border-x border-b border-gray-200 rounded-b-xl mt-0.5">
-                        <p className="text-xs sm:text-sm text-gray-700 leading-relaxed">{faq.answer}</p>
+                        <p className="text-sm sm:text-base text-gray-700 leading-relaxed">{faq.answer}</p>
                         <button
                           onClick={() => handleQuickQuestion(faq.question)}
-                          className="mt-2 sm:mt-3 text-xs text-slate-700 hover:text-slate-900 font-semibold flex items-center space-x-1 transition-colors"
+                          className="mt-2 sm:mt-3 text-sm text-slate-700 hover:text-slate-900 font-semibold flex items-center space-x-1 transition-colors"
                         >
-                          <MessageCircle className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+                          <MessageCircle className="w-4 h-4 sm:w-4 sm:h-4" />
                           <span>Ask this in chat →</span>
                         </button>
                       </div>
@@ -541,10 +541,10 @@ const AdamsChatbot = () => {
                         : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'
                     }`}
                   >
-                    <Icon className={`w-4 h-4 sm:w-5 sm:h-5 transition-all duration-300 ${
+                    <Icon className={`w-5 h-5 sm:w-6 sm:h-6 transition-all duration-300 ${
                       isActive ? 'text-slate-800 scale-110' : 'text-gray-500'
                     }`} />
-                    <span className={`text-xs font-semibold transition-colors ${
+                    <span className={`text-xs sm:text-sm font-semibold transition-colors ${
                       isActive ? 'text-slate-800' : 'text-gray-500'
                     }`}>
                       {item.label}
