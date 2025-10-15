@@ -1,8 +1,7 @@
-import Chatbot from "./components/Chatbot";
-
+import AdamsChatbot from "./components/AdamsChatbot"
 
 export default function App() {
   return (
-    <Chatbot />
+    <AdamsChatbot />
   )
 }
