@@ -121,7 +121,7 @@ const AdamsChatbot = () => {
       title: "Book Appointment",
       subtitle: "Schedule your service",
       action: () => setScreen('appointment'),
-      gradient: "from-orange-600 to-red-600"
+      gradient: "from-orange-300 to-red-400"
     },
     {
       icon: MessageCircle,
@@ -283,12 +283,13 @@ const AdamsChatbot = () => {
           height: 'min(85vh, 750px)',
           maxHeight: '85vh',
           minHeight: '500px',
-          borderRadius: "32px"
+          borderRadius: "25px",
+          border: "none"
         }}
       >
         <div className="flex flex-col h-full">
           {/* Header with Black/Gray Gradient */}
-          <div className={`relative overflow-hidden bg-gradient-to-br from-slate-800 via-slate-700 to-slate-900 ${screen === 'home' ? 'pb-8' : ''}`} style={{ borderRadius: '32px 32px 0 0' }}>
+          <div className={`relative overflow-hidden bg-gradient-to-br from-slate-800 via-slate-700 to-slate-900 ${screen === 'home' ? 'pb-8' : ''}`} style={{ borderRadius: '25px 25px 0 0', border: "none" }}>
             {/* Animated Background Effects */}
             <div className="absolute inset-0 opacity-20">
               <div className="absolute w-40 h-40 bg-white rounded-full blur-3xl animate-pulse"
@@ -366,7 +367,7 @@ const AdamsChatbot = () => {
               <div className="h-full overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent">
                 <div className="p-4 sm:p-5 space-y-3 sm:space-y-4">
                   <div className="text-center mb-3 sm:mb-4">
-                    <h4 className="text-2xl sm:text-3xl font-bold text-slate-800 mb-2">
+                    <h4 className="text-1xl sm:text-2xl font-bold text-slate-800 mb-2">
                       How Can We Help?
                     </h4>
                     <p className="text-gray-600 text-sm sm:text-base">Professional HVAC services at your fingertips</p>
@@ -528,6 +529,7 @@ const AdamsChatbot = () => {
                   <button
                     id="schedule-btn"
                     className="se-booking-show px-7 py-3 bg-[#F26C4F] hover:bg-[#e55b3c] text-white font-bold text-base uppercase rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center mx-auto gap-2"
+                    style={{ cursor: "pointer" }}
                     type="button"
                   >
                     <Calendar className="w-5 h-5" />
