@@ -260,6 +260,21 @@ const AdamsChatbot = () => {
 
   if (!isOpen) return null;
 
+
+  useEffect(() => {
+    const existingScript = document.getElementById('se-widget-embed');
+    if (existingScript) return; // prevent duplicate loads
+
+    const script = document.createElement('script');
+    script.src = 'https://embed.scheduler.servicetitan.com/scheduler-v1.js';
+    script.defer = true;
+    script.id = 'se-widget-embed';
+    script.setAttribute('data-api-key', 'v9ldn6v8e4e2kojpmc4c09uq');
+    script.setAttribute('data-schedulerid', 'sched_m92iobtbu31s82gqcq4i7dif');
+    document.body.appendChild(script);
+  }, []);
+
+
   return (
     <div className="fixed right-0 bottom-0 w-full sm:w-[450px] md:w-[450px] lg:w-[450px] shadow-2xl z-50">
       <div
@@ -407,16 +422,16 @@ const AdamsChatbot = () => {
                       <div className={`max-w-[85%] sm:max-w-[80%]`}>
                         <div className={`flex items-end space-x-2 ${msg.type === 'user' ? 'flex-row-reverse space-x-reverse' : ''}`}>
                           <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center shadow-lg flex-shrink-0 ${msg.type === 'user'
-                              ? 'bg-gradient-to-br from-gray-700 to-gray-800'
-                              : 'bg-gradient-to-br from-slate-700 to-slate-900'
+                            ? 'bg-gradient-to-br from-gray-700 to-gray-800'
+                            : 'bg-gradient-to-br from-slate-700 to-slate-900'
                             }`}>
                             <span className="text-white text-xs font-bold">
                               {msg.type === 'user' ? 'U' : 'A'}
                             </span>
                           </div>
                           <div className={`px-3 sm:px-4 py-2 sm:py-3 rounded-2xl shadow-md ${msg.type === 'user'
-                              ? 'bg-gradient-to-br from-gray-700 to-gray-800 text-white rounded-br-sm'
-                              : 'bg-white text-slate-800 rounded-bl-sm border border-gray-200'
+                            ? 'bg-gradient-to-br from-gray-700 to-gray-800 text-white rounded-br-sm'
+                            : 'bg-white text-slate-800 rounded-bl-sm border border-gray-200'
                             }`}>
                             <div
                               className="text-sm sm:text-base leading-relaxed"
@@ -500,38 +515,29 @@ const AdamsChatbot = () => {
             )}
 
             {/* APPOINTMENT SCREEN */}
-            {/* APPOINTMENT SCREEN */}
             {screen === 'appointment' && (
               <div className="h-full flex items-center justify-center p-4 sm:p-5 bg-gray-50">
                 <div className="text-center">
-                  <h2 className="text-xl sm:text-2xl font-bold text-slate-800 mb-4">
+                  <h2 className="text-xl sm:text-2xl font-bold text-slate-800 mb-3">
                     Schedule Your Service
                   </h2>
                   <p className="text-gray-600 mb-6 text-sm sm:text-base">
-                    Click the button below to book your appointment online
+                    Book your HVAC service quickly with our online scheduler.
                   </p>
 
-                  {/* ServiceTitan booking button with custom styling */}
                   <button
-                    className="se-booking-show px-7 py-3 bg-[#F26C4F] hover:bg-[#e55b3c] text-white font-bold text-base uppercase rounded-xl transition-colors duration-300 shadow-lg hover:shadow-xl flex items-center justify-center mx-auto space-x-2"
+                    id="schedule-btn"
+                    className="se-booking-show px-7 py-3 bg-[#F26C4F] hover:bg-[#e55b3c] text-white font-bold text-base uppercase rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center mx-auto gap-2"
                     type="button"
                   >
                     <Calendar className="w-5 h-5" />
-                    <span>📅 Schedule Online</span>
+                    <span>Schedule Online</span>
                   </button>
                 </div>
-
-                {/* ServiceTitan booking widget script */}
-                <script
-                  data-api-key="v9ldn6v8e4e2kojpmc4c09uq"
-                  data-schedulerid="sched_m92iobtbu31s82gqcq4i7dif"
-                  defer
-                  id="se-widget-embed"
-                  src="https://embed.scheduler.servicetitan.com/scheduler-v1.js"
-                />
               </div>
             )}
-            </div>
+
+          </div>
 
           {/* Footer Navigation */}
           <div className="border-t-2 border-gray-200 bg-white">
@@ -549,8 +555,8 @@ const AdamsChatbot = () => {
                     key={item.screen}
                     onClick={() => setScreen(item.screen)}
                     className={`flex-1 p-3 sm:p-4 flex flex-col items-center space-y-1 transition-all duration-300 relative ${isActive
-                        ? 'text-slate-800 bg-gray-50'
-                        : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'
+                      ? 'text-slate-800 bg-gray-50'
+                      : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'
                       }`}
                   >
                     <Icon className={`w-5 h-5 sm:w-6 sm:h-6 transition-all duration-300 ${isActive ? 'text-slate-800 scale-110' : 'text-gray-500'
