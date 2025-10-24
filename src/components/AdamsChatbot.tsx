@@ -121,7 +121,7 @@ const AdamsChatbot = () => {
       title: "Book Appointment",
       subtitle: "Schedule your service",
       action: () => setScreen('appointment'),
-      gradient: "from-orange-300 to-red-400"
+      gradient: "from-orange-400 to-red-400"
     },
     {
       icon: MessageCircle,
