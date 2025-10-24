@@ -342,6 +342,7 @@ const AdamsChatbot = () => {
             {/* HOME SCREEN */}
             {screen === 'home' && (
               <div className="h-full overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent">
+                
                 <div className="p-4 sm:p-5 space-y-3 sm:space-y-4">
                   <div className="text-center mb-3 sm:mb-4">
                     <h4 className="text-1xl sm:text-2xl font-bold text-slate-800 mb-2">
@@ -349,8 +350,8 @@ const AdamsChatbot = () => {
                     </h4>
                     <p className="text-gray-600 text-sm sm:text-base">Professional HVAC services at your fingertips</p>
                   </div>
-
-                  <div className="space-y-2 sm:space-y-3">
+<br />
+                  <div className="space-y-2 sm:space-y-3 ">
                     {quickActions.map((action, index) => {
                       const Icon = action.icon;
                       return (
