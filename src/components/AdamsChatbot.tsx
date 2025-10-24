@@ -244,17 +244,17 @@ const AdamsChatbot = () => {
     // Bold: **text** or __text__
     let parsed = text.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
     parsed = parsed.replace(/__(.+?)__/g, '<strong>$1</strong>');
-    
+
     // Italic: *text* or _text_
     parsed = parsed.replace(/\*(.+?)\*/g, '<em>$1</em>');
     parsed = parsed.replace(/_(.+?)_/g, '<em>$1</em>');
-    
+
     // Links: [text](url)
     parsed = parsed.replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" class="underline">$1</a>');
-    
+
     // Line breaks
     parsed = parsed.replace(/\n/g, '<br />');
-    
+
     return parsed;
   };
 
@@ -406,21 +406,19 @@ const AdamsChatbot = () => {
                     <div key={idx} className={`flex ${msg.type === 'user' ? 'justify-end' : 'justify-start'}`}>
                       <div className={`max-w-[85%] sm:max-w-[80%]`}>
                         <div className={`flex items-end space-x-2 ${msg.type === 'user' ? 'flex-row-reverse space-x-reverse' : ''}`}>
-                          <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center shadow-lg flex-shrink-0 ${
-                            msg.type === 'user'
+                          <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center shadow-lg flex-shrink-0 ${msg.type === 'user'
                               ? 'bg-gradient-to-br from-gray-700 to-gray-800'
                               : 'bg-gradient-to-br from-slate-700 to-slate-900'
-                          }`}>
+                            }`}>
                             <span className="text-white text-xs font-bold">
                               {msg.type === 'user' ? 'U' : 'A'}
                             </span>
                           </div>
-                          <div className={`px-3 sm:px-4 py-2 sm:py-3 rounded-2xl shadow-md ${
-                            msg.type === 'user'
+                          <div className={`px-3 sm:px-4 py-2 sm:py-3 rounded-2xl shadow-md ${msg.type === 'user'
                               ? 'bg-gradient-to-br from-gray-700 to-gray-800 text-white rounded-br-sm'
                               : 'bg-white text-slate-800 rounded-bl-sm border border-gray-200'
-                          }`}>
-                            <div 
+                            }`}>
+                            <div
                               className="text-sm sm:text-base leading-relaxed"
                               dangerouslySetInnerHTML={{ __html: parseMarkdown(msg.text) }}
                             />
@@ -502,23 +500,38 @@ const AdamsChatbot = () => {
             )}
 
             {/* APPOINTMENT SCREEN */}
+            {/* APPOINTMENT SCREEN */}
             {screen === 'appointment' && (
-              <div className="h-full p-4 sm:p-5">
-                <div className="relative h-full">
-                  {appointmentLoading && (
-                    <div className="absolute inset-0 flex items-center justify-center bg-gray-50 bg-opacity-90 rounded-xl z-10">
-                      <div className="w-8 h-8 sm:w-10 sm:h-10 border-4 border-gray-200 border-t-slate-700 rounded-full animate-spin"></div>
-                    </div>
-                  )}
-                  <iframe
-                    src="https://api.leadconnectorhq.com/widget/booking/HiYopj7kQx8hI3Om9rbq"
-                    className="w-full h-full border-0 rounded-xl shadow-md"
-                    onLoad={() => setAppointmentLoading(false)}
-                  />
+              <div className="h-full flex items-center justify-center p-4 sm:p-5 bg-gray-50">
+                <div className="text-center">
+                  <h2 className="text-xl sm:text-2xl font-bold text-slate-800 mb-4">
+                    Schedule Your Service
+                  </h2>
+                  <p className="text-gray-600 mb-6 text-sm sm:text-base">
+                    Click the button below to book your appointment online
+                  </p>
+
+                  {/* ServiceTitan booking button with custom styling */}
+                  <button
+                    className="se-booking-show px-7 py-3 bg-[#F26C4F] hover:bg-[#e55b3c] text-white font-bold text-base uppercase rounded-xl transition-colors duration-300 shadow-lg hover:shadow-xl flex items-center justify-center mx-auto space-x-2"
+                    type="button"
+                  >
+                    <Calendar className="w-5 h-5" />
+                    <span>📅 Schedule Online</span>
+                  </button>
                 </div>
+
+                {/* ServiceTitan booking widget script */}
+                <script
+                  data-api-key="v9ldn6v8e4e2kojpmc4c09uq"
+                  data-schedulerid="sched_m92iobtbu31s82gqcq4i7dif"
+                  defer
+                  id="se-widget-embed"
+                  src="https://embed.scheduler.servicetitan.com/scheduler-v1.js"
+                />
               </div>
             )}
-          </div>
+            </div>
 
           {/* Footer Navigation */}
           <div className="border-t-2 border-gray-200 bg-white">
@@ -535,18 +548,15 @@ const AdamsChatbot = () => {
                   <button
                     key={item.screen}
                     onClick={() => setScreen(item.screen)}
-                    className={`flex-1 p-3 sm:p-4 flex flex-col items-center space-y-1 transition-all duration-300 relative ${
-                      isActive
+                    className={`flex-1 p-3 sm:p-4 flex flex-col items-center space-y-1 transition-all duration-300 relative ${isActive
                         ? 'text-slate-800 bg-gray-50'
                         : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'
-                    }`}
+                      }`}
                   >
-                    <Icon className={`w-5 h-5 sm:w-6 sm:h-6 transition-all duration-300 ${
-                      isActive ? 'text-slate-800 scale-110' : 'text-gray-500'
-                    }`} />
-                    <span className={`text-xs sm:text-sm font-semibold transition-colors ${
-                      isActive ? 'text-slate-800' : 'text-gray-500'
-                    }`}>
+                    <Icon className={`w-5 h-5 sm:w-6 sm:h-6 transition-all duration-300 ${isActive ? 'text-slate-800 scale-110' : 'text-gray-500'
+                      }`} />
+                    <span className={`text-xs sm:text-sm font-semibold transition-colors ${isActive ? 'text-slate-800' : 'text-gray-500'
+                      }`}>
                       {item.label}
                     </span>
                     {isActive && (
