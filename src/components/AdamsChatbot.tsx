@@ -116,13 +116,7 @@ const AdamsChatbot = () => {
   ];
 
   const quickActions = [
-    {
-      icon: Calendar,
-      title: "Book Appointment",
-      subtitle: "Schedule your service",
-      action: () => setScreen('appointment'),
-      gradient: "from-orange-400 to-red-400"
-    },
+    
     {
       icon: MessageCircle,
       title: "Start a Chat",
@@ -130,13 +124,7 @@ const AdamsChatbot = () => {
       action: () => setScreen('chat'),
       gradient: "from-gray-700 to-gray-800"
     },
-    {
-      icon: Phone,
-      title: "Call Us Now",
-      subtitle: "(205) 462-8303",
-      action: () => window.open('tel:2054628303'),
-      gradient: "from-green-600 to-emerald-600"
-    },
+   
     {
       icon: Mail,
       title: "Email Support",
@@ -261,18 +249,7 @@ const AdamsChatbot = () => {
   if (!isOpen) return null;
 
 
-  useEffect(() => {
-    const existingScript = document.getElementById('se-widget-embed');
-    if (existingScript) return; // prevent duplicate loads
-
-    const script = document.createElement('script');
-    script.src = 'https://embed.scheduler.servicetitan.com/scheduler-v1.js';
-    script.defer = true;
-    script.id = 'se-widget-embed';
-    script.setAttribute('data-api-key', 'v9ldn6v8e4e2kojpmc4c09uq');
-    script.setAttribute('data-schedulerid', 'sched_m92iobtbu31s82gqcq4i7dif');
-    document.body.appendChild(script);
-  }, []);
+ 
 
 
   return (
@@ -516,28 +493,7 @@ const AdamsChatbot = () => {
             )}
 
             {/* APPOINTMENT SCREEN */}
-            {screen === 'appointment' && (
-              <div className="h-full flex items-center justify-center p-4 sm:p-5 bg-gray-50">
-                <div className="text-center">
-                  <h2 className="text-xl sm:text-2xl font-bold text-slate-800 mb-3">
-                    Schedule Your Service
-                  </h2>
-                  <p className="text-gray-600 mb-6 text-sm sm:text-base">
-                    Book your HVAC service quickly with our online scheduler.
-                  </p>
-
-                  <button
-                    id="schedule-btn"
-                    className="se-booking-show px-7 py-3 bg-[#F26C4F] hover:bg-[#e55b3c] text-white font-bold text-base uppercase rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center mx-auto gap-2"
-                    style={{ cursor: "pointer" }}
-                    type="button"
-                  >
-                    <Calendar className="w-5 h-5" />
-                    <span>Schedule Online</span>
-                  </button>
-                </div>
-              </div>
-            )}
+           
 
           </div>
 
