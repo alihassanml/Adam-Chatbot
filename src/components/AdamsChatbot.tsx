@@ -116,7 +116,7 @@ const AdamsChatbot = () => {
   ];
 
   const quickActions = [
-    
+
     {
       icon: MessageCircle,
       title: "Start a Chat",
@@ -124,7 +124,7 @@ const AdamsChatbot = () => {
       action: () => setScreen('chat'),
       gradient: "from-gray-700 to-gray-800"
     },
-   
+
     {
       icon: Mail,
       title: "Email Support",
@@ -249,7 +249,7 @@ const AdamsChatbot = () => {
   if (!isOpen) return null;
 
 
- 
+
 
 
   return (
@@ -295,9 +295,9 @@ const AdamsChatbot = () => {
             <div className={`relative z-10 text-white ${screen === 'home' ? 'p-5 sm:p-6 pb-0' : 'p-4 sm:p-5'}`}>
               <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center space-x-2 sm:space-x-3">
-                 
+
                   <div>
-                    
+                      <img src="Adams-Service.webp" alt="" style={{width:"150px",height:"70px"}} />
                   </div>
                 </div>
               </div>
@@ -337,7 +337,7 @@ const AdamsChatbot = () => {
             {/* HOME SCREEN */}
             {screen === 'home' && (
               <div className="h-full overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent">
-                
+
                 <div className="p-4 sm:p-5 space-y-3 sm:space-y-4">
                   <div className="text-center mb-3 sm:mb-4">
                     <h4 className="text-1xl sm:text-2xl font-bold text-slate-800 mb-2">
@@ -345,7 +345,7 @@ const AdamsChatbot = () => {
                     </h4>
                     <p className="text-gray-600 text-sm sm:text-base">Professional HVAC services at your fingertips</p>
                   </div>
-<br />
+                  <br />
                   <div className="space-y-2 sm:space-y-3 ">
                     {quickActions.map((action, index) => {
                       const Icon = action.icon;
@@ -489,7 +489,7 @@ const AdamsChatbot = () => {
             )}
 
             {/* APPOINTMENT SCREEN */}
-           
+
 
           </div>
 
