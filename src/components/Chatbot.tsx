@@ -497,7 +497,7 @@ const AdamsChatbot = () => {
           <div className="border-t-2 border-gray-200 bg-white">
             <div className="flex">
               {[
-                { icon: Home, label: 'Home', screen: 'home' as Screen },
+                // { icon: Home, label: 'Home', screen: 'home' as Screen },
                 { icon: MessageCircle, label: 'Chat', screen: 'chat' as Screen },
                 { icon: HelpCircle, label: 'FAQ', screen: 'faq' as Screen }
               ].map((item) => {
