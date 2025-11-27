@@ -13,7 +13,7 @@ const WELCOME_MESSAGE = `Hi! Welcome to Adams Heating & Cooling. How can we help
 
 const AdamsChatbot = () => {
   const [isOpen, setIsOpen] = useState(true);
-  const [screen, setScreen] = useState<Screen>('home');
+  const [screen, setScreen] = useState<Screen>('chat');
   const [input, setInput] = useState('');
   const [messages, setMessages] = useState<Message[]>([]);
   const [typingMessage, setTypingMessage] = useState<string | null>(null);
@@ -295,14 +295,9 @@ const AdamsChatbot = () => {
             <div className={`relative z-10 text-white ${screen === 'home' ? 'p-5 sm:p-6 pb-0' : 'p-4 sm:p-5'}`}>
               <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center space-x-2 sm:space-x-3">
-                  <div className="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-white to-gray-100 rounded-xl flex items-center justify-center shadow-lg">
-                    <div className="text-xl sm:text-2xl font-bold text-slate-800">A</div>
-                  </div>
+                 
                   <div>
-                    <h3 className="font-bold text-lg sm:text-xl tracking-wide">Adams HVAC</h3>
-                    <div className="flex items-center space-x-2 text-xs sm:text-sm opacity-90">
-                      <span className="text-gray-300">❄️ Online Now</span>
-                    </div>
+                    
                   </div>
                 </div>
               </div>
