@@ -1,4 +1,4 @@
-import AdamsChatbot from "./components/AdamsChatbot"
+import AdamsChatbot from "./components/Chatbot"
 
 export default function App() {
   return (
